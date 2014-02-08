@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title></title>
+    <link href="bower_components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" type="text/css">
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+    <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+    <link href="assets/stylesheets/app.css" rel="stylesheet" type="text/css" media="screen">
+</head>
+
+<body>
+
+    <nav>
+        <ul>
+            <li>
+                <button id="new" class="btn btn-default btn-xs">new</button>
+            </li>
+            <li>
+                <button id="open" class="btn btn-default btn-xs">open</button>
+            </li>
+            <li>
+                <button id="save" class="btn btn-default btn-xs">save</button>
+            </li>
+        </ul>
+        <div id="forFile">
+            <input id="openFile" type="file" accept=".html,.css,.js,.json,.md,.markdown,.txt">
+            <input id="saveFile" type="file" nwsaveas>
+            <input id="fileEntry" type="text" style="width:100%;color:black;">
+            <label>hasChanged:</label>
+            <input id="hasChanged" type="checkbox">
+        </div>
+    </nav>
+
+    <pre id="editor"></pre>
+    <div id="statusBar">
+        <div class="right">
+            <select id="editmode">
+                <option value="javascript">JavaScript</option>
+                <option value="html">HTML</option>
+                <option value="css">CSS</option>
+                <option value="markdown">Markdown</option>
+                <option value="text">Text</option>
+            </select>
+            <span id="editmodestring"></span>
+        </div>
+    </div>
+
+    <script src="bower_components/ace-builds/src-noconflict/ace.js" charset="utf-8"></script>
+    <script src="bower_components/ace-builds/src-noconflict/ext-statusbar.js"></script>
+    <script src="bower_components/jquery/jquery.min.js"></script>
+    <script src="assets/javascripts/app.js"></script>
+    <script src="assets/javascripts/jsrunner.js"></script>
+    <!-- script src="assets/javascripts/livereload.js"></script -->
+
+</body>
+
+</html>

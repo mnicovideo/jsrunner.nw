@@ -1,0 +1,68 @@
+body {
+    overflow: hidden;
+    background-color: black;
+}
+nav {
+    margin-left: 0.5em;
+}
+nav ul {
+    list-style-type: none;
+    padding: 0;
+}
+nav li {
+    float: left;
+}
+button {
+    width: 5em;
+    margin-right: 0.5em;
+}
+#editor {
+    margin: 0;
+    padding: 0;
+    border: 0;
+    border-radius: 0;
+    position: absolute;
+    top: 40px;
+    bottom: 20px;
+    left: 0;
+    right: 0;
+}
+#forFile {
+    clear: left;
+    color: white;
+    display:none;
+}
+#forFile input[text] {
+    color: black;
+}
+#statusBar {
+    margin: 0;
+    padding: 0;
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: 20px;
+    background-color: #555;
+    color: white;
+    font-size: 0.8em;
+    line-height: 1.9em;
+}
+#editmode {
+    position: absolute;
+    right: 0;
+    display: none;
+    color: black;
+}
+#editmodestring {
+    cursor: pointer;
+    margin-right: 0.1em;
+}
+.right {
+    position: absolute;
+    right: 0.4em;
+}
+.ace_status-indicator {
+    position: absolute;
+    left: 0.4em;
+}
