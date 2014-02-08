@@ -55,17 +55,18 @@ $('nav>ul')
             .prop('class', 'btn btn-default btn-xs')
             .text('clear')));
 $('#editor')
-    .css('bottom', '200px')
+    .css('bottom', '188px')
     .after($('<div id="stdout">')
-        .css('margin', '0')
-        .css('padding', '0.5em')
+        .css('margin', '5px')
+        .css('padding', '0')
         .css('border', '0')
         .css('border-radius', '0')
         .css('position', 'absolute')
         .css('bottom', '20px')
         .css('left', '0')
         .css('right', '0')
-        .css('height', '180px')
+        .css('height', '158px')
+        .css('overflow', 'auto')
         .css('color', 'white'));
 //
 $('#new').click(function(evt) {
@@ -79,7 +80,9 @@ $('#run').click(function(evt) {
     try {
         new Function(editor.getValue())();
     } catch (e) {
-        $('#stdout').append($('<span>').css('color', 'red').text(e));
+        $('#stdout')
+            .append($('<span>').css('color', 'red').text(e))
+            .scrollTop($('#stdout')[0].scrollHeight);
     }
     editor.focus();
 });
@@ -90,7 +93,9 @@ $('#preview').click(function(evt) {
         w.document.write(editor.getValue());
         w.document.close();
     } catch (e) {
-        $('#stdout').append($('<span>').css('color', 'red').text(e));
+        $('#stdout')
+            .append($('<span>').css('color', 'red').text(e))
+            .scrollTop($('#stdout')[0].scrollHeight);
     }
 	$(this).blur();
 });
