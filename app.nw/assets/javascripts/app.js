@@ -1,7 +1,7 @@
+var gui = require('nw.gui');
+var clipboard = gui.Clipboard.get();
+var fs = require('fs');
 (function(global) {
-    var gui = require('nw.gui');
-    var fs = require('fs');
-    var clipboard = gui.Clipboard.get();
     var defaultMode = 'javascript';
 
     function setAceMode(mode) {
