@@ -1,42 +1,69 @@
-function p(s) {
-    var stdout = document.getElementById('stdout');
-    stdout.innerHTML += s + '<br>';
-    stdout.scrollTop = stdout.scrollHeight;
-}
-
-function print(s) {
-    var stdout = document.getElementById('stdout');
-    stdout.innerHTML += s;
-    stdout.scrollTop = stdout.scrollHeight;
-}
-
-function puts(s) {
-    var stdout = document.getElementById('stdout');
-    stdout.innerHTML += s + '<br>';
-    stdout.scrollTop = stdout.scrollHeight;
-}
-
-function gets() {
-    var text = arguments[0] ? arguments[0] : '';
-    var value = arguments[1] ? arguments[1] : '';
-    var result = window.prompt(text, value);
-    return result;
-}
-
-function getn() {
-    var text = arguments[0] ? arguments[0] : '';
-    var value = arguments[1] && Number.isFinite(arguments[1]) ? arguments[1] : 0;
-    var flg = true;
-    while (flg) {
-        var result = window.prompt(text, value);
-        result = result === null ? null : Number(result);
-        if (result === null || Number.isFinite(result)) {
-            flg = false;
-        }
-    }
-    return result;
-}
+var jsrunner = { source:{} };
+jsrunner.source.functions = "\
+function p(s) {\
+    var stdout = window.parent.document.getElementById('stdout');\
+    stdout.innerHTML += s + '<br>';\
+    stdout.scrollTop = stdout.scrollHeight;\
+}\
+\
+function print(s) {\
+    var stdout = window.parent.document.getElementById('stdout');\
+    stdout.innerHTML += s;\
+    stdout.scrollTop = stdout.scrollHeight;\
+}\
+\
+function puts(s) {\
+    var stdout = window.parent.document.getElementById('stdout');\
+    stdout.innerHTML += s + '<br>';\
+    stdout.scrollTop = stdout.scrollHeight;\
+}\
+\
+function gets() {\
+    var text = arguments[0] ? arguments[0] : '';\
+    var value = arguments[1] ? arguments[1] : '';\
+    var result = window.prompt(text, value);\
+    return result;\
+}\
+\
+function getn() {\
+    var text = arguments[0] ? arguments[0] : '';\
+    var value = arguments[1] && Number.isFinite(arguments[1]) ? arguments[1] : 0;\
+    var flg = true;\
+    while (flg) {\
+        var result = window.prompt(text, value);\
+        result = result === null ? null : Number(result);\
+        if (result === null || Number.isFinite(result)) {\
+            flg = false;\
+        }\
+    }\
+    return result;\
+}\
+";
+jsrunner.source.before = "\
+<!DOCTYPE html>\
+<html>\
+<head></head>\
+<body>\
+<script>\
+try {\
+";
+jsrunner.source.after = "\
+} catch(e) {\
+  var stdout = window.parent.document.getElementById('stdout');\
+  stdout.innerHTML += '<span style=\"color:red;\">' + e + '</span>';\
+  stdout.scrollTop = stdout.scrollHeight;\
+}\
+</script>\
+</body>\
+</html>\
+";
 //
+$('body')
+    .append($('<iframe>')
+        .prop('id', 'sandbox')
+        .prop('src', 'nw:blank')
+        .prop('nwdisable', 'nwdisable')
+        .css('display', 'none'));
 $('nav>ul')
     .append($('<li>')
         .append($('<button>')
@@ -48,6 +75,7 @@ $('nav>ul')
         .append($('<button>')
             .prop('id', 'preview')
             .prop('class', 'btn btn-default btn-xs')
+            .prop('disabled', true)
             .text('preview')))
     .append($('<li>')
         .append($('<button>')
@@ -70,15 +98,18 @@ $('#editor')
         .css('color', 'white'));
 //
 $('#new').click(function(evt) {
-	$('#stdout').text('');
+    $('#stdout').text('');
 });
 $('#open').click(function(evt) {
-	$('#stdout').text('');
+    $('#stdout').text('');
 });
 $('#run').click(function(evt) {
-    $('#stdout').text('');
+    $('#clear').trigger('click');
     try {
-        new Function(editor.getValue())();
+        var doc = $('#sandbox')[0].contentDocument;
+        doc.open();
+        doc.write(jsrunner.source.before + jsrunner.source.functions + editor.getValue() + jsrunner.source.after);
+        doc.close();
     } catch (e) {
         $('#stdout')
             .append($('<span>').css('color', 'red').text(e))
@@ -88,7 +119,9 @@ $('#run').click(function(evt) {
 });
 $('#preview').click(function(evt) {
     try {
-        var w = window.open('about:blank');
+        var w = window.open('about:blank', {
+            nodejs: false
+        });
         w.document.open();
         w.document.write(editor.getValue());
         w.document.close();
@@ -97,11 +130,22 @@ $('#preview').click(function(evt) {
             .append($('<span>').css('color', 'red').text(e))
             .scrollTop($('#stdout')[0].scrollHeight);
     }
-	$(this).blur();
+    $(this).blur();
 });
 $('#clear').click(function(evt) {
+    var iframe = $('#sandbox')[0];
+    iframe.src = iframe.src;
     $('#stdout').text('');
     editor.focus();
 });
+$('#editmode').change(function(evt) {
+    if ($(this).val() === 'html') {
+        $('#preview').prop('disabled', false);
+    } else {
+        $('#preview').prop('disabled', true);
+    }
+});
 //
-editor.setValue("puts( 'hello, ' + gets('what is your name?','anonymous') );", -1);
+editor.setValue("\
+puts( 'hello, ' + gets('what is your name?','anonymous') );\n\
+", -1);
