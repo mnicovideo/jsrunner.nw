@@ -72,18 +72,20 @@ $('#commands>ul')
             .prop('id', 'run')
             .prop('class', 'btn btn-default btn-xs')
             .css('margin-left', '1em')
-            .text('run')))
+            .append($('<span class="underline">').text('R'))
+            .append('un')))
     .append($('<li>')
         .append($('<button>')
             .prop('id', 'preview')
             .prop('class', 'btn btn-default btn-xs')
             .prop('disabled', true)
-            .text('preview')))
+            .append($('<span class="underline">').text('P'))
+            .append('review')))
     .append($('<li>')
         .append($('<button>')
             .prop('id', 'clear')
             .prop('class', 'btn btn-default btn-xs')
-            .text('clear')));
+            .text('Clear')));
 $('#editor')
     .css('bottom', '188px')
     .after($('<div id="stdout">')
@@ -121,6 +123,7 @@ $('#run').click(function(evt) {
     editor.focus();
 });
 $('#preview').click(function(evt) {
+    $('#clear').trigger('click');
     try {
         var new_win = gui.Window.open('blank.html', {
             toolbar: true,

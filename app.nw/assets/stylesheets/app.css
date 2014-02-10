@@ -62,6 +62,9 @@ body {
     position: absolute;
     right: 0.4em;
 }
+.underline {
+    text-decoration: underline;
+}
 .ace_status-indicator {
     position: absolute;
     left: 0.4em;
