@@ -123,13 +123,14 @@ $('#run').click(function(evt) {
 $('#preview').click(function(evt) {
     try {
         var new_win = gui.Window.open('blank.html', {
-            focus: true,
-            nodejs: false
+            toolbar: true,
+            focus: true
         });
         new_win.on('loaded', function() {
-            new_win.window.document.open();
-            new_win.window.document.write(editor.getValue());
-            new_win.window.document.close();
+            var _document = $('iframe', new_win.window.document)[0].contentDocument;
+            _document.open();
+            _document.write(editor.getValue());
+            _document.close();
         });
     } catch (e) {
         $('#stdout')
