@@ -1,4 +1,6 @@
-var jsrunner = { source:{} };
+var jsrunner = {
+    source: {}
+};
 jsrunner.source.functions = "\
 function p(s) {\
     var stdout = window.parent.document.getElementById('stdout');\
@@ -61,7 +63,7 @@ jsrunner.source.after = "\
 $('body')
     .append($('<iframe>')
         .prop('id', 'sandbox')
-        .prop('src', 'nw:blank')
+        .prop('src', 'about:blank')
         .prop('nwdisable', 'nwdisable')
         .css('display', 'none'));
 $('#commands>ul')
@@ -113,21 +115,26 @@ $('#run').click(function(evt) {
     } catch (e) {
         $('#stdout')
             .append($('<span>').css('color', 'red').text(e))
+            .append($('<br>'))
             .scrollTop($('#stdout')[0].scrollHeight);
     }
     editor.focus();
 });
 $('#preview').click(function(evt) {
     try {
-        var w = window.open('about:blank', {
+        var new_win = gui.Window.open('blank.html', {
+            focus: true,
             nodejs: false
         });
-        w.document.open();
-        w.document.write(editor.getValue());
-        w.document.close();
+        new_win.on('loaded', function() {
+            new_win.window.document.open();
+            new_win.window.document.write(editor.getValue());
+            new_win.window.document.close();
+        });
     } catch (e) {
         $('#stdout')
             .append($('<span>').css('color', 'red').text(e))
+            .append($('<br>'))
             .scrollTop($('#stdout')[0].scrollHeight);
     }
     $(this).blur();
