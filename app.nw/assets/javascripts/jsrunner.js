@@ -19,14 +19,14 @@ function puts(s) {\
 }\
 \
 function gets() {\
-    var text = arguments[0] ? arguments[0] : '';\
-    var value = arguments[1] ? arguments[1] : '';\
+    var text = arguments[0] || '';\
+    var value = arguments[1] || '';\
     var result = window.prompt(text, value);\
     return result;\
 }\
 \
 function getn() {\
-    var text = arguments[0] ? arguments[0] : '';\
+    var text = arguments[0] || '';\
     var value = arguments[1] && Number.isFinite(arguments[1]) ? arguments[1] : 0;\
     var flg = true;\
     while (flg) {\
@@ -64,7 +64,7 @@ $('body')
         .prop('src', 'nw:blank')
         .prop('nwdisable', 'nwdisable')
         .css('display', 'none'));
-$('nav>ul')
+$('#commands>ul')
     .append($('<li>')
         .append($('<button>')
             .prop('id', 'run')
@@ -146,6 +146,3 @@ $('#editmode').change(function(evt) {
     }
 });
 //
-editor.setValue("\
-puts( 'hello, ' + gets('what is your name?','anonymous') );\n\
-", -1);

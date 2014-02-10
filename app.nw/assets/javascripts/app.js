@@ -5,7 +5,7 @@ var fs = require('fs');
     var defaultMode = 'javascript';
 
     function setAceMode(mode) {
-        var modeString = 'ace/mode/' + (mode ? mode : defaultMode);
+        var modeString = 'ace/mode/' + (mode || defaultMode);
         editor.session.setMode(modeString);
     }
 
@@ -82,7 +82,7 @@ var fs = require('fs');
     }
 
     function setMode(mode) {
-        var modeString = mode ? mode : defaultMode;
+        var modeString = mode || defaultMode;
         setAceMode(modeString);
         $('#editmode').val(modeString);
         $('#editmodestring').text($('#editmode option:selected').text())

@@ -2,17 +2,17 @@ body {
     overflow: hidden;
     background-color: black;
 }
-nav {
+#commands {
     margin-left: 0.5em;
 }
-nav ul {
+#commands ul {
     list-style-type: none;
     padding: 0;
 }
-nav li {
+#commands li {
     float: left;
 }
-button {
+#commands button {
     width: 5em;
     margin-right: 0.5em;
 }
