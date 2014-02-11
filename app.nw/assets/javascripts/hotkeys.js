@@ -1,12 +1,17 @@
 (function() {
     function setHotKey(options) {
+        var _opt = options || {},
+            _edt = _opt.editor || {},
+            _app = _opt.app || {};
         editor.commands.addCommand({
-            name: options.editor.name,
-            bindKey: options.editor.bindKey,
-            exec: options.editor.exec,
+            name: _edt.name || '',
+            bindKey: _edt.bindKey || {},
+            exec: _edt.exec || function() {},
             readOnly: false
         });
-        $(document).bind('keydown', options.app.bindKey, options.app.exec);
+        $(document).bind('keydown', _app.bindKey || {}, _app.exec || function() {
+            return false;
+        });
     }
 
     function handleNew() {
