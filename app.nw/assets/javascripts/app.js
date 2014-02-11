@@ -85,7 +85,7 @@ var fs = require('fs');
         var modeString = mode || defaultMode;
         setAceMode(modeString);
         $('#editmode').val(modeString);
-        $('#editmodestring').text($('#editmode option:selected').text())
+        $('#editmodestring').text($('#editmode option:selected').text()).change();
     }
 
     function initStatus(title) {

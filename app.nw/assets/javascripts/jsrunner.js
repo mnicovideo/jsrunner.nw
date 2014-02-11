@@ -131,8 +131,12 @@ $('#preview').click(function(evt) {
         });
         new_win.on('loaded', function() {
             var _document = $('iframe', new_win.window.document)[0].contentDocument;
+            var _source = editor.getValue();
+            if ($('#editmodestring').text() === 'Markdown') {
+                _source = markdown.toHTML(_source);
+            }
             _document.open();
-            _document.write(editor.getValue());
+            _document.write(_source);
             _document.close();
         });
     } catch (e) {
@@ -149,11 +153,13 @@ $('#clear').click(function(evt) {
     $('#stdout').text('');
     editor.focus();
 });
-$('#editmode').change(function(evt) {
-    if ($(this).val() === 'html') {
+$('#editmodestring').change(function(evt) {
+    if ($(this).text() === 'HTML' || $(this).text() === 'Markdown') {
         $('#preview').prop('disabled', false);
+        $('#run').prop('disabled', true);
     } else {
         $('#preview').prop('disabled', true);
+        $('#run').prop('disabled', false);
     }
 });
 //
