@@ -12,6 +12,9 @@
         $(document).bind('keydown', _app.bindKey || {}, _app.exec || function() {
             return false;
         });
+        $('#findreplace input').bind('keydown', _app.bindKey || {}, _app.exec || function() {
+            return false;
+        });
     }
 
     function handleNew() {
@@ -36,6 +39,14 @@
         if (!$('#preview').prop('disabled')) {
             $('#preview').trigger('click');
         }
+    }
+
+    function handleFindReplace() {
+        $('#find').trigger('click');
+    }
+
+    function handleEscape() {
+        $('#fd-finish').trigger('click');
     }
     //
     setHotKey({
@@ -129,6 +140,44 @@
             bindKey: 'ctrl+p meta+p',
             exec: function(evt) {
                 handlePreview();
+                return false;
+            }
+        }
+    });
+    setHotKey({
+        editor: {
+            name: 'FIND/REPLACE',
+            bindKey: {
+                win: 'Ctrl-f',
+                mac: 'Command-f'
+            },
+            exec: function(editor) {
+                handleFindReplace();
+            }
+        },
+        app: {
+            bindKey: 'ctrl+f meta+f',
+            exec: function(evt) {
+                handleFindReplace();
+                return false;
+            }
+        }
+    });
+    setHotKey({
+        editor: {
+            name: 'ESCAPE',
+            bindKey: {
+                win: 'esc',
+                mac: 'esc'
+            },
+            exec: function(editor) {
+                handleEscape();
+            }
+        },
+        app: {
+            bindKey: 'esc',
+            exec: function(evt) {
+                handleEscape();
                 return false;
             }
         }
