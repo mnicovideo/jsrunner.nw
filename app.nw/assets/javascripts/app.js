@@ -120,23 +120,32 @@ var fs = require('fs');
     }
 
     function textFindPreview() {
-        console.log('fd-preview');
+        editor.findPrevious();
     }
 
     function textFindNext() {
-        console.log('fd-next');
+        editor.findNext();
     }
 
     function textReplace() {
-        console.log('rp-replace');
+        editor.replace($('#rp-text').val());
+        editor.session.selection.clearSelection();
     }
 
     function textReplaceAll() {
-        console.log('rp-replaceall');
+        editor.replaceAll($('#rp-text').val());
+        editor.session.selection.clearSelection();
     }
 
     function incrementalSearch() {
-        console.log('incrementalSearch');
+        editor.find($('#fd-text').val(), {
+            skipCurrent: false,
+            backwards: false,
+            wrap: true,
+            caseSensitive: false,
+            wholeWord: false,
+            regExp: false
+        });
     }
 
     var editor = global.editor = ace.edit('editor');
