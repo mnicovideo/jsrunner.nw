@@ -69,3 +69,64 @@ body {
     position: absolute;
     left: 0.4em;
 }
+
+#editor.mode-find {
+    top: 70px;
+}
+#editor.mode-replace {
+    top: 95px;
+}
+#findreplace {
+    background-color: #555;
+    color: white;
+    font-size: 10px;
+    position: absolute;
+    top: 40px;
+    width: 100%;
+    height: 26px;
+}
+#findreplace.mode-replace {
+    height: 51px;
+}
+#findreplace .textbox {
+    position: absolute;
+    top: 3px;
+    left: 3px;
+    right: 205px;
+}
+#findreplace .frbuttons {
+    position: absolute;
+    top: 3px;
+    right: 5px;
+}
+#findreplace .find {
+}
+#findreplace .replace {
+    position: absolute;
+    top: 24px;
+    left: 0;
+    right: 0;
+    display: none;
+}
+#findreplace input[type="text"] {
+    width: 100%;
+}
+#findreplace input, #findreplace button {
+    color: black;
+}
+#findreplace .frbuttons {
+    line-height: 18px;
+}
+#findreplace .frbuttons button {
+    line-height: 1em;
+    width: 5em;
+}
+#findreplace .frbuttons .btnlg {
+    width: 2em;
+}
+#findreplace .frbuttons input[type="checkbox"] {
+    margin-left: 2em;
+}
+#findreplace .frbuttons .btnfs {
+    margin-left: 0.5em;
+}

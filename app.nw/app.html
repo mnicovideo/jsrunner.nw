@@ -26,6 +26,10 @@
                 <button id="save" class="btn btn-default btn-xs">
                     <span class="underline">S</span>ave</button>
             </li>
+            <li>
+                <button id="find" class="btn btn-default btn-xs">
+                    <span class="underline">F</span>ind/Rep</button>
+            </li>
         </ul>
         <div id="forFile">
             <input id="openFile" type="file" accept=".html,.css,.js,.json,.md,.markdown,.txt">
@@ -35,6 +39,32 @@
             <input id="hasChanged" type="checkbox">
         </div>
     </nav>
+
+    <div id="findreplace">
+        <div class="find">
+            <div class="textbox">
+                <input id="fd-text" type="text" placeholder="Find" value="">
+            </div>
+            <div class="frbuttons">
+                <button id="fd-preview" class="btn btn-default btn-xs btnlg">&lt;</button>
+                <button id="fd-next" class="btn btn-default btn-xs btnlg">&gt;</button>
+                <button id="fd-finish" class="btn btn-default btn-xs btnfs">Finish</button>
+                <label>
+                    <input type="checkbox" id="fd-enablereplace">Replace
+                </label>
+            </div>
+        </div>
+        <div class="replace">
+            <div class="textbox">
+                <input id="rp-text" type="text" placeholder="Replace" value="">
+            </div>
+            <div class="frbuttons">
+                <button id="rp-replace" class="btn btn-default btn-xs btnrp">Replace</button>
+                <button id="rp-replaceall" class="btn btn-default btn-xs btnrp">All</button>
+                <button id="rp-finish" class="btn btn-default btn-xs btnfs">Finish</button>
+            </div>
+        </div>
+    </div>
 
     <pre id="editor"></pre>
     <div id="statusBar">
@@ -52,7 +82,7 @@
 
     <script src="bower_components/ace-builds/src-noconflict/ace.js" charset="utf-8"></script>
     <script src="bower_components/ace-builds/src-noconflict/ext-statusbar.js"></script>
-    <script src="bower_components/jquery/jquery.min.js"></script>
+    <script src="bower_components/jquery/dist/jquery.min.js"></script>
     <script src="bower_components/jquery.hotkeys/jquery.hotkeys.js"></script>
     <script src="bower_components/markdown/lib/markdown.js"></script>
     <script src="assets/javascripts/app.js"></script>
