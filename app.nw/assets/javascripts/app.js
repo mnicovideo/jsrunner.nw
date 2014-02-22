@@ -252,4 +252,30 @@ var fs = require('fs');
     $('#fd-text').keyup(function(evt) {
         incrementalSearch();
     });
+    //
+    gui.App.on('open', function(filePath) {
+        if (filePath.match(/.js$/)) {
+            if ($('#hasChanged:checked').val()) {
+                if ($('#fileEntry').val()) {
+                    $('#save').trigger('click');
+                } else {
+                    if (!window.confirm('Are you sure?')) {
+                        editor.focus();
+                        return false;
+                    }
+                }
+            }
+            $('#fileEntry').val();
+            onChosenFileToOpen(filePath);
+            editor.focus();
+        }
+    });
+    if (gui.App.argv.length) {
+        var filePath = gui.App.argv[0];
+        if (filePath.match(/.js$/)) {
+            $('#fileEntry').val();
+            onChosenFileToOpen(filePath);
+            editor.focus();
+        }
+    }
 })(this);
