@@ -103,6 +103,42 @@ var fs = require('fs');
         editor.session.getUndoManager().reset();
     }
 
+    function showReplaceMode(isShow) {
+        if (isShow) {
+            $('#editor').addClass('mode-replace');
+            $('#findreplace').addClass('mode-replace');
+            $('#findreplace .replace').css('display', 'block');
+            $('#fd-finish').css('visibility', 'hidden');
+            $('#rp-text').focus();
+        } else {
+            $('#editor').removeClass('mode-replace');
+            $('#findreplace').removeClass('mode-replace');
+            $('#findreplace .replace').css('display', 'none');
+            $('#fd-finish').css('visibility', 'visible');
+            $('#fd-text').focus();
+        }
+    }
+
+    function textFindPreview() {
+        console.log('fd-preview');
+    }
+
+    function textFindNext() {
+        console.log('fd-next');
+    }
+
+    function textReplace() {
+        console.log('rp-replace');
+    }
+
+    function textReplaceAll() {
+        console.log('rp-replaceall');
+    }
+
+    function incrementalSearch() {
+        console.log('incrementalSearch');
+    }
+
     var editor = global.editor = ace.edit('editor');
     var StatusBar = ace.require('ace/ext/statusbar').StatusBar;
     var statusBar = new StatusBar(editor, document.getElementById('statusBar'));
@@ -148,9 +184,42 @@ var fs = require('fs');
         }
         editor.focus();
     });
+    $('#find').click(function(evt) {
+        if ($('#editor').hasClass('mode-find')) {
+            $('#fd-enablereplace').trigger('click');
+        } else {
+            $('#editor').addClass('mode-find');
+            $('#fd-text').focus();
+        }
+    });
+    $('#fd-finish').click(function(evt) {
+        showReplaceMode(false);
+        $('#editor').removeClass('mode-find');
+        $('#fd-enablereplace').prop('checked', false);
+        editor.focus();
+    });
+    $('#rp-finish').click(function(evt) {
+        $('#fd-finish').trigger('click');
+    });
+    $('#fd-enablereplace').click(function(evt) {
+        showReplaceMode($(this).prop('checked'));
+    });
     $('#editmodestring').click(function(evt) {
         $('#editmode').show().focus();
     });
+    $('#fd-preview').click(function(evt) {
+        textFindPreview();
+    });
+    $('#fd-next').click(function(evt) {
+        textFindNext();
+    });
+    $('#rp-replace').click(function(evt) {
+        textReplace();
+    });
+    $('#rp-replaceall').click(function(evt) {
+        textReplaceAll();
+    });
+    //
     $('#editmode')
         .change(function(evt) {
             setMode($(this).val());
@@ -158,7 +227,6 @@ var fs = require('fs');
         .blur(function(evt) {
             $('#editmode').hide();
         });
-    //
     $('#openFile').change(function(evt) {
         if (!$(this).val()) {
             editor.focus();
@@ -171,5 +239,8 @@ var fs = require('fs');
     $('#saveFile').change(function(evt) {
         onChosenFileToSave($(this).val());
         editor.focus();
+    });
+    $('#fd-text').keyup(function(evt) {
+        incrementalSearch();
     });
 })(this);
